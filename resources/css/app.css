@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* BACKGROUND VIDEO */
+.background-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Changed to -1 so it sits behind the Breeze layout */
+    pointer-events: none;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 30, 0.35);
+    z-index: 0;
+    pointer-events: none;
+}

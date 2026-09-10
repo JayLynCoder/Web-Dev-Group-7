@@ -1,0 +1,278 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Courier New", Courier, monospace;
+    color: #ffffff;
+    background: #05051a;
+}
+
+/* BACKGROUND VIDEO */
+.background-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 30, 0.35);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* LAYOUT */
+.auth-page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.auth-content {
+    width: min(100%, 430px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* LOGO */
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.brand a {
+    display: inline-flex;
+    justify-content: center;
+}
+
+.brand__logo {
+    display: block;
+    width: min(330px, 82vw);
+    height: auto;
+    image-rendering: pixelated;
+    filter:
+        drop-shadow(0 0 6px rgba(104, 212, 255, 0.35))
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+/* AUTH SECTION */
+.auth-section {
+    width: 100%;
+}
+
+/* CARD */
+.auth-card {
+    width: 100%;
+    padding: 2rem 2.25rem 1.75rem;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 16px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* FORM */
+.auth-form {
+    width: 100%;
+}
+
+.auth-fields {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+/* form fields */
+.form-field {
+    margin: 0 0 1.25rem;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* INPUTS */
+.input-group {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.85rem;
+    transform: translateY(-50%);
+    color: #34384d;
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.form-field input {
+    width: 100%;
+    height: 2.8rem;
+    padding: 0.65rem 0.85rem 0.65rem 2.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.88);
+    color: #24243b;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    outline: none;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-field input::placeholder {
+    color: #858799;
+    opacity: 1;
+}
+
+.form-field input:focus {
+    background: rgba(255, 255, 255, 0.97);
+    border-color: #68d4ff;
+    box-shadow: 0 0 0 3px rgba(104, 212, 255, 0.22);
+}
+
+/* BUTTON */
+.auth-button {
+    display: block;
+    width: 100%;
+    min-height: 2.8rem;
+    margin-top: 0.35rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    background: rgba(7, 7, 45, 0.9);
+    color: #ffffff;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-button:hover {
+    background: rgba(17, 17, 90, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.3);
+}
+
+.auth-button:active {
+    transform: translateY(1px);
+}
+
+/* LOGIN/REGISTER LINK */
+.account-switch {
+    margin: 1.15rem 0 0;
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.account-switch a {
+    color: #68d4ff;
+    font-weight: 700;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.account-switch a:hover {
+    color: #b5edff;
+}
+
+/* FOOTER */
+.site-footer {
+    margin-top: 1.75rem;
+    text-align: center;
+}
+
+.site-footer p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.8rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ACCESSIBILITY */
+.form-field input:focus-visible,
+.auth-button:focus-visible,
+.account-switch a:focus-visible {
+    outline: 2px solid #68d4ff;
+    outline-offset: 3px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 600px) {
+    .auth-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .brand {
+        margin-bottom: 1.25rem;
+    }
+
+    .brand__logo {
+        width: min(280px, 80vw);
+    }
+
+    .auth-card {
+        padding: 1.6rem 1.4rem 1.5rem;
+        border-radius: 14px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
