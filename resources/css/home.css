@@ -1,0 +1,25 @@
+body{
+    background-color: rgba(255, 192, 203, 0.5);
+}
+
+form{
+    width: 35vw;
+    height: 30vh;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    width: 50%;
+    height: 20%;
+    margin: 10px 0;
+}
+
+button{
+    width: 35%;
+    height: 20%;
+    border-radius: 10px;
+}
