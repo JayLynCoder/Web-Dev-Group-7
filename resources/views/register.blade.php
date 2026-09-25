@@ -13,11 +13,12 @@
     >
 
     <title>HexaHub | Register</title>
-    @vite(['resources/css/auth.css'])
+    <!--@vite(['resources/css/auth.css'])-->
+    @vite(['resources/css/auth.css', 'resources/css/cursor-trail.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <!-- Background video -->
+<body id="trail-stage">
+    <!-- Background video 
     <video
         class="background-video"
         autoplay
@@ -30,7 +31,7 @@
             src="{{ asset('videos/background.mp4') }}"
             type="video/mp4"
         >
-    </video>
+    </video>-->
 
     <div
         class="background-overlay"
@@ -75,9 +76,10 @@
 
                     <form
                         class="auth-form"
-                        action="#"
+                        action="/register"
                         method="POST"
                     >
+                    @csrf
 
                         <fieldset class="auth-fields">
 

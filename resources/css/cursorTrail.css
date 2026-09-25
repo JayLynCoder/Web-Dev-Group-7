@@ -1,0 +1,17 @@
+.bit {
+  position: fixed;
+  font-size: 150px;
+  font-weight: bold;
+  color: #39c0ff;
+  text-shadow: 0 0 6px #39c0ff, 0 0 12px #1fae5c;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+  animation: fall-fade 1.1s ease-out forwards;
+  z-index: 9999;
+}
+
+@keyframes fall-fade {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% + 40px)) scale(0.8); }
+}
