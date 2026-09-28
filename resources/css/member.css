@@ -1,0 +1,321 @@
+/* DASHBOARD*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Courier New", Courier, monospace;
+    color: #ffffff;
+
+    background: #05051a;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* SIDEBAR*/
+
+.dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 280px;
+    height: 100vh;
+
+    padding: 30px 24px;
+
+    background: #111827;
+    color: #ffffff;
+}
+
+
+/* Sidebar Header */
+
+.sidebar-header {
+    margin-bottom: 35px;
+}
+
+.sidebar-header h1 {
+    margin: 0 0 6px;
+
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.sidebar-header p {
+    margin: 0;
+
+    font-size: 0.8rem;
+
+    color: #9ca3af;
+}
+
+
+/* Navigation */
+
+.sidebar-navigation {
+    flex: 1;
+}
+
+.sidebar-navigation h2 {
+    margin: 0 0 14px;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #9ca3af;
+}
+
+
+/* Member List */
+
+.member-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 10px;
+
+    border-radius: 8px;
+
+    font-size: 0.78rem;
+    line-height: 1.4;
+
+    color: #e5e7eb;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.member-link{
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.member-item:hover {
+    background: #1f2937;
+    transform: translateX(3px);
+    cursor: pointer;
+}
+
+.member-icon {
+    flex-shrink: 0;
+
+    font-size: 0.4rem;
+
+    color: #60a5fa;
+}
+
+/*BUTTON*/
+.auth-button {
+    display: block;
+
+    width: 100%;
+    min-height: 2.8rem;
+
+    margin-top: 0.35rem;
+
+    padding: 0.7rem 1rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 8px;
+
+    background: rgba(7, 7, 45, 0.9);
+
+    color: #ffffff;
+
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.25);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-button:hover {
+    background: rgba(17, 17, 90, 0.95);
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.3);
+}
+
+.auth-button:active {
+    transform: translateY(1px);
+}
+
+
+/* Sidebar Footer */
+
+.sidebar-footer {
+    margin-top: auto;
+}
+
+.logout-button {
+    width: 100%;
+}
+
+
+/* MAIN CONTENT */
+
+.dashboard-content {
+    width: calc(100% - 280px);
+    min-height: 100vh;
+
+    margin-left: 280px;
+
+    padding: 40px;
+
+    background: #f5f7fb;
+}
+
+
+/* Dashboard Header */
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-label {
+    margin: 0 0 5px;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #6b7280;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+
+    font-size: 2rem;
+
+    color: #111827;
+}
+
+
+/* Dashboard Section */
+
+.dashboard-section {
+    margin-bottom: 20px;
+}
+
+
+/* Dashboard Cards */
+
+.dashboard-card {
+    padding: 28px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-card h2 {
+    margin: 0 0 12px;
+
+    font-size: 1.2rem;
+
+    color: #111827;
+}
+
+.dashboard-card p {
+    margin: 6px 0;
+
+    font-size: 0.9rem;
+    line-height: 1.6;
+
+    color: #6b7280;
+}
+
+
+/* Dashboard Footer */
+
+.dashboard-footer {
+    margin-top: 40px;
+
+    text-align: center;
+
+    font-size: 0.75rem;
+
+    color: #9ca3af;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar-navigation {
+        margin-bottom: 30px;
+    }
+
+    .dashboard-content {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 25px 20px;
+    }
+}
