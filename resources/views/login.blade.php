@@ -18,7 +18,7 @@
 </head>
 
 <body id="trail-stage">
-    <!-- Background video 
+     <!-- Background video 
     <video
         class="background-video"
         autoplay

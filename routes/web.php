@@ -1,31 +1,35 @@
 <?php
-use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('login');
+    return redirect()->route('login');
 });
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
 Route::post('/login', function () {
-    return redirect('/dashboard');
-});
+    return redirect()->route('dashboard');
+})->name('login.submit');
 
 Route::get('/register', function () {
     return view('register');
-});
+})->name('register');
 
 Route::post('/register', function () {
-    return redirect('/dashboard');
-});
+    return redirect()
+        ->route('register')
+        ->with('registration_success', true);
+})->name('register.submit');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
 
 Route::post('/logout', function () {
-    return redirect('/login');
-});
+    session()->flush();
+
+    return redirect()->route('login');
+})->name('logout');
