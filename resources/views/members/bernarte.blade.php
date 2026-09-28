@@ -97,7 +97,7 @@
                     <header>
                         <h2 id="group-heading">Get To Know More</h2>
                     </header>
-                    <p>Aspires to be a: Web Developer / App Developer</p>
+                    <p>Aspiration: Boboiboy Merch and Art Supplies</p>
                 </article>
             </section>
 
