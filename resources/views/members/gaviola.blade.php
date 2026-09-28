@@ -97,7 +97,10 @@
                     <header>
                         <h2 id="group-heading">Get To Know More</h2>
                     </header>
-                    <p>Aspiration: wait lang di ko alam</p>
+                    <p>Aspiration: UI/UX Designer</p>
+                    <p>MBTI: ISTJ</p>
+                    <p>Zodiac Sign: Aquarius</p>
+                    <p>Advocacy: Jikook</p>
                 </article>
             </section>
 

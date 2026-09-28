@@ -97,7 +97,10 @@
                     <header>
                         <h2 id="group-heading">Get To Know More</h2>
                     </header>
-                    <p>Aspiration: Boboiboy Merch and Art Supplies</p>
+                    <p>Aspiration: App/Web Developer</p>
+                    <p>Hobbies: Drawing, Reading</p>
+                    <p>Likes: Chocolate, Boboiboy</p>
+                    <p>Dream to own: Boboiboy Merch, Multiple Art Supplies</p>
                 </article>
             </section>
 
