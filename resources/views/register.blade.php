@@ -18,7 +18,7 @@
 
     @vite([
         'resources/css/auth.css',
-        'resources/css/cursor-trail.css',
+        'resources/css/cursorTrail.css',
         'resources/js/app.js'
     ])
 </head>

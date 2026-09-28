@@ -25,11 +25,23 @@ Route::post('/register', function () {
         ->with('registration_success', true);
 })->name('register.submit');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
-
 Route::post('/logout', function () {
     session()->flush();
 
     return redirect()->route('login');
 })->name('logout');
+
+Route::get('/dashboard', function () {
+    return view('dashboard', ['members' => config('members')]);
+});
+
+Route::get('/members/{slug}', function ($slug) {
+    $members = config('members');
+
+    abort_unless(array_key_exists($slug, $members), 404);
+
+    return view('members.' . $slug, [
+        'members' => $members,
+        'name'    => $members[$slug],
+    ]);
+})->name('members.show');

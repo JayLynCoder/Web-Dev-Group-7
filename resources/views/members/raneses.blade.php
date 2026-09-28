@@ -17,7 +17,7 @@
     <title>HexaHub | Dashboard</title>
 
     @vite([
-        'resources/css/dashboard.css',
+        'resources/css/member.css',
         'resources/js/app.js',
         'resources/css/cursorTrail.css'
     ])
@@ -109,7 +109,7 @@
                     </p>
 
                     <h1>
-                        Dashboard
+                        Raneses
                     </h1>
 
                 </div>
