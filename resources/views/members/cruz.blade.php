@@ -97,7 +97,7 @@
                     <header>
                         <h2 id="group-heading">Get To Know More</h2>
                     </header>
-                    <p>Aspires to be a: ??</p>
+                    <p>Aspiration: ??</p>
                 </article>
             </section>
 
