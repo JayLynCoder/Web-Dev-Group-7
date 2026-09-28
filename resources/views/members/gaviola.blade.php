@@ -78,9 +78,9 @@
                     <header>
                         <h2 id="welcome-heading">Student Information</h2>
                     </header>
-                    <p>Email: ??</p>
-                    <p>School Email: ??</p>
-                    <p>Birthdate: ??</p>
+                    <p>Email: gaviolajonna11@gmail.com</p>
+                    <p>School Email: jonnangaviola@iskolarngbayan.pup.edu.ph</p>
+                    <p>Birthdate: February 11, 2006</p>
                     <p>University: Polytechnic University of the Philippines Santa Rosa Campus</p>
                     <p>Course: Bachelor of Science in Information Technology</p>
                     <p>Section: 3-1</p>
@@ -97,7 +97,10 @@
                     <header>
                         <h2 id="group-heading">Get To Know More</h2>
                     </header>
-                    <p>Aspires to be a: ??</p>
+                    <p>Aspiration: UI/UX Designer</p>
+                    <p>MBTI: ISTJ</p>
+                    <p>Zodiac Sign: Aquarius</p>
+                    <p>Advocacy: Jikook</p>
                 </article>
             </section>
 
