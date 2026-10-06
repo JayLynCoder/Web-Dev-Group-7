@@ -289,6 +289,38 @@ body {
 label{
     color: black;
 }
+
+
+#record-form{
+    display: flex;
+    flex-direction: column;
+}
+
+#record-form input{
+    width: 50%;
+    margin-bottom: 10px;
+    background-color: lightgray;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 5px
+}
+
+.time-button{
+    width: 10%;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: rgb(179, 255, 179);
+    border: solid 1px green;
+}
+
+.time-button:hover{
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    box-shadow: 2px 2px 2px black;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
@@ -316,3 +348,4 @@ label{
         padding: 25px 20px;
     }
 }
+

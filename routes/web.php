@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -32,16 +31,13 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::get('/dashboard', function () {
-    return view('dashboard', ['members' => config('members')]);
-});
+    return view('dashboard');
+})->name('dashboard');
 
-Route::get('/members/{slug}', function ($slug) {
-    $members = config('members');
+Route::get('/record', function () {
+    return view('record');
+})->name('record');
 
-    abort_unless(array_key_exists($slug, $members), 404);
-
-    return view('members.' . $slug, [
-        'members' => $members,
-        'name'    => $members[$slug],
-    ]);
-})->name('members.show');
+Route::get('/attendance', function () {
+    return view('attendance');
+})->name('attendance');
