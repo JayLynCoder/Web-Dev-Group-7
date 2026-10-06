@@ -17,7 +17,7 @@
     <title>HexaHub | Dashboard</title>
 
     @vite([
-        'resources/css/dashboard.css',
+        'resources/css/record.css',
         'resources/js/app.js',
         'resources/css/cursorTrail.css'
     ])
@@ -53,15 +53,15 @@
             >
 
                 <h2 id="members-heading">
-                    Members
+                    Navigation
                 </h2>
 
                 <ul class="member-list">
                     <li class='member-item'>
-                        <a href="{{route('register')}}" class="member-link" >Register Student</a>
+                        <a href="{{route('attendance')}}" class="member-link" >Record Attendance</a>
                     </li>
                     <li class='member-item'>
-                        <a href="{{route('record')}}" class="member-link" >Record Attendance</a>
+                        <a href="{{route('record')}}" class="member-link" >Register Employee</a>
                     </li>
                 </ul>
 
@@ -103,7 +103,7 @@
                     </p>
 
                     <h1>
-                        Dashboard
+                        Register Employee
                     </h1>
 
                 </div>
@@ -127,13 +127,12 @@
 
                     </header>
 
-                    <p>
-                        Successfully logged in!
-                    </p>
-
-                    <p>
-                        Welcome to the Group 7 dashboard.
-                    </p>
+                    <form id="record-form">
+                        <label for="employeeId">Employee Id:</label>
+                        <input type="text" name="employeeId" id="employeeId"/>
+                        <button class="time-button">Time In</button>
+                        <button class="time-button">Time Out</button>
+                    </form>
 
                 </article>
 
