@@ -60,7 +60,7 @@
             <header class="dashboard-header">
                 <div>
                     <p class="dashboard-label">HexaHub</p>
-                    <h1>Register Employee</h1>
+                    <h1>Logs</h1>
                 </div>
             </header>
 
@@ -78,32 +78,6 @@
                     @if ($errors->any())
                         <p class="error-message">{{ $errors->first() }}</p>
                     @endif
-
-                    <form id="register-form" action="{{ route('register-employee.submit') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-
-                        <label for="fname">First Name:</label>
-                        <input type="text" name="first_name" id="fname" value="{{ old('first_name') }}" required>
-
-                        <label for="lname">Last Name:</label>
-                        <input type="text" name="last_name" id="lname" value="{{ old('last_name') }}" required>
-
-                        <label for="employee-number">Employee Number:</label>
-                        <input type="text" name="employee_number" id="employee-number" value="{{ old('employee_number') }}" required>
-
-                        <label for="department">Department:</label>
-                        <input type="text" name="department" id="department" value="{{ old('department') }}" required>
-                        
-                        
-                        <label for="picture">Picture:</label>
-                        <input type="file" name="picture" id="picture" accept="image/*" required onchange="previewImage(event)">
-
-                        <div id="preview-container" style="margin-top:10px;">
-                            <img id="preview" src="" alt="Image preview" style="max-width:200px; display:none;">
-                        </div>
-
-                        <button type="submit" class="auth-button" id="register-button">Register Employee</button>
-                    </form>
 
                 </article>
             </section>
@@ -125,26 +99,6 @@
         </main>
 
     </div>
-
-
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('preview');
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block'; // show the image
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = "";
-                preview.style.display = 'none'; // hide if no file selected
-            }
-        }
-        </script>
 
 </body>
 

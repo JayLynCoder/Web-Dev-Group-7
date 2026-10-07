@@ -82,7 +82,7 @@
                     @if (session('scanned_employee'))
                         @php $employee = session('scanned_employee'); @endphp
 
-                        <div class="employee-preview">
+                        <div class="employee-preview" id="employee-preview">
                             <img
                                 src="{{ asset('storage/employees/' . $employee->picture) }}"
                                 alt="{{ $employee->first_name }} {{ $employee->last_name }}"
@@ -91,6 +91,16 @@
                             <p>{{ $employee->first_name }} {{ $employee->last_name }}</p>
                             <p>{{ $employee->department }}</p>
                         </div>
+
+                        <script>
+                            // Hide the preview after 3 seconds (3000 ms)
+                            setTimeout(() => {
+                                const preview = document.getElementById('employee-preview');
+                                if (preview) {
+                                    preview.style.display = 'none';
+                                }
+                            }, 3000);
+                        </script>
                     @endif
 
                     <form id="record-form" method="POST" action="{{ route('attendance.record') }}">

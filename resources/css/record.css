@@ -291,18 +291,22 @@ label{
 }
 
 
-#record-form{
+#register-form{
     display: flex;
     flex-direction: column;
 }
 
-#record-form input{
+#register-form input{
     width: 50%;
     margin-bottom: 10px;
     background-color: lightgray;
     border: solid 1px black;
     border-radius: 5px;
     padding: 5px
+}
+
+#register-button{
+    width: 20%;
 }
 
 .time-button{
