@@ -42,11 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const statusText =
         document.getElementById("statusText");
 
-    const statusIndicator =
-        document.getElementById("statusIndicator");
-
+    // FIXED: matches the class in employee/dashboard.blade.php
     const statusDot =
-        document.querySelector(".status-dot");
+        document.querySelector(".employee-status-dot");
 
     const clockInTime =
         document.getElementById("clockInTime");
@@ -70,7 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("mobileMenuButton");
 
     const sidebar =
-        document.querySelector(".sidebar");
+        document.querySelector(".employee-sidebar");
+
+    const logoutButton =
+        document.getElementById("logoutButton");
 
 
     let attendanceState = "not-clocked-in";
@@ -104,22 +105,32 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-        liveClock.textContent = time;
+        if (liveClock) {
+            liveClock.textContent = time;
+        }
 
-        currentDate.textContent = date;
+        if (currentDate) {
+            currentDate.textContent = date;
+        }
 
-        clockDate.textContent = date;
+        if (clockDate) {
+            clockDate.textContent = date;
+        }
 
-        modalDate.textContent = date;
+        if (modalDate) {
+            modalDate.textContent = date;
+        }
 
-        modalTime.textContent =
-            now.toLocaleTimeString(
-                "en-US",
-                {
-                    hour: "numeric",
-                    minute: "2-digit"
-                }
-            );
+        if (modalTime) {
+            modalTime.textContent =
+                now.toLocaleTimeString(
+                    "en-US",
+                    {
+                        hour: "numeric",
+                        minute: "2-digit"
+                    }
+                );
+        }
     }
 
 
@@ -134,40 +145,44 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
-    attendanceAction.addEventListener(
-        "click",
-        () => {
+    if (attendanceAction) {
 
-            if (
-                attendanceState ===
-                "not-clocked-in"
-            ) {
+        attendanceAction.addEventListener(
+            "click",
+            () => {
 
-                modalTitle.textContent =
-                    "Confirm Clock In";
+                if (
+                    attendanceState ===
+                    "not-clocked-in"
+                ) {
 
-                modalDescription.textContent =
-                    "Are you sure you want to clock in and start your work session?";
+                    modalTitle.textContent =
+                        "Confirm Clock In";
 
-                confirmAttendance.textContent =
-                    "Confirm Clock In";
+                    modalDescription.textContent =
+                        "Are you sure you want to clock in and start your work session?";
 
-            } else {
+                    confirmAttendance.textContent =
+                        "Confirm Clock In";
 
-                modalTitle.textContent =
-                    "Confirm Clock Out";
+                } else {
 
-                modalDescription.textContent =
-                    "Are you sure you want to clock out and end your work session?";
+                    modalTitle.textContent =
+                        "Confirm Clock Out";
 
-                confirmAttendance.textContent =
-                    "Confirm Clock Out";
+                    modalDescription.textContent =
+                        "Are you sure you want to clock out and end your work session?";
+
+                    confirmAttendance.textContent =
+                        "Confirm Clock Out";
+                }
+
+
+                confirmationModal.classList.add("show");
             }
+        );
 
-
-            confirmationModal.classList.add("show");
-        }
-    );
+    }
 
 
     /*
@@ -178,20 +193,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function closeConfirmation() {
 
-        confirmationModal.classList.remove("show");
+        if (confirmationModal) {
+            confirmationModal.classList.remove("show");
+        }
 
     }
 
 
-    closeModal.addEventListener(
-        "click",
-        closeConfirmation
-    );
+    if (closeModal) {
+        closeModal.addEventListener(
+            "click",
+            closeConfirmation
+        );
+    }
 
-    cancelModal.addEventListener(
-        "click",
-        closeConfirmation
-    );
+    if (cancelModal) {
+        cancelModal.addEventListener(
+            "click",
+            closeConfirmation
+        );
+    }
 
 
     /*
@@ -200,117 +221,167 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
-    confirmAttendance.addEventListener(
-        "click",
-        () => {
+    if (confirmAttendance) {
 
-            const now = new Date();
+        confirmAttendance.addEventListener(
+            "click",
+            () => {
 
-            const formattedTime =
-                now.toLocaleTimeString(
-                    "en-US",
-                    {
-                        hour: "numeric",
-                        minute: "2-digit"
-                    }
+                const now = new Date();
+
+                const formattedTime =
+                    now.toLocaleTimeString(
+                        "en-US",
+                        {
+                            hour: "numeric",
+                            minute: "2-digit"
+                        }
+                    );
+
+
+                confirmationModal.classList.remove(
+                    "show"
                 );
 
 
-            confirmationModal.classList.remove(
-                "show"
-            );
+                /*
+                |--------------------------------------------------------------------------
+                | CLOCK IN
+                |--------------------------------------------------------------------------
+                */
+
+                if (
+                    attendanceState ===
+                    "not-clocked-in"
+                ) {
+
+                    attendanceState =
+                        "clocked-in";
 
 
-            if (
-                attendanceState ===
-                "not-clocked-in"
-            ) {
+                    if (clockInTime) {
+                        clockInTime.textContent =
+                            formattedTime;
+                    }
 
-                attendanceState =
-                    "clocked-in";
 
-                clockInTime.textContent =
+                    if (statusText) {
+                        statusText.textContent =
+                            "On Duty";
+                    }
+
+
+                    if (statusDot) {
+                        statusDot.style.background =
+                            "#16a34a";
+                    }
+
+
+                    attendanceAction.textContent =
+                        "Clock Out";
+
+
+                    if (actionNote) {
+                        actionNote.textContent =
+                            "You are currently on duty.";
+                    }
+
+
+                    successTitle.textContent =
+                        "Clock In Successful";
+
+
+                    successMessage.textContent =
+                        "Your work session has started.";
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | CLOCK OUT
+                |--------------------------------------------------------------------------
+                */
+
+                else {
+
+                    attendanceState =
+                        "clocked-out";
+
+
+                    if (clockOutTime) {
+                        clockOutTime.textContent =
+                            formattedTime;
+                    }
+
+
+                    if (statusText) {
+                        statusText.textContent =
+                            "Workday Complete";
+                    }
+
+
+                    if (statusDot) {
+                        statusDot.style.background =
+                            "#2563eb";
+                    }
+
+
+                    attendanceAction.textContent =
+                        "Workday Complete";
+
+                    attendanceAction.disabled =
+                        true;
+
+                    attendanceAction.style.background =
+                        "#94a3b8";
+
+
+                    if (actionNote) {
+                        actionNote.textContent =
+                            "Your attendance for today is complete.";
+                    }
+
+
+                    successTitle.textContent =
+                        "Clock Out Successful";
+
+
+                    successMessage.textContent =
+                        "Your work session has ended.";
+                }
+
+
+                successTime.textContent =
                     formattedTime;
 
-                statusText.textContent =
-                    "On Duty";
 
-                statusDot.style.background =
-                    "#16a34a";
+                successModal.classList.add(
+                    "show"
+                );
 
-                attendanceAction.textContent =
-                    "Clock Out";
 
-                actionNote.textContent =
-                    "You are currently on duty.";
+                /*
+                |--------------------------------------------------------------------------
+                | KEEP SUCCESS SCREEN FOR 3 SECONDS
+                |--------------------------------------------------------------------------
+                */
 
-                successTitle.textContent =
-                    "Clock In Successful";
+                setTimeout(
+                    () => {
 
-                successMessage.textContent =
-                    "Your work session has started.";
+                        successModal.classList.remove(
+                            "show"
+                        );
 
-            } else {
+                    },
+                    3000
+                );
 
-                attendanceState =
-                    "clocked-out";
-
-                clockOutTime.textContent =
-                    formattedTime;
-
-                statusText.textContent =
-                    "Workday Complete";
-
-                statusDot.style.background =
-                    "#2563eb";
-
-                attendanceAction.textContent =
-                    "Workday Complete";
-
-                attendanceAction.disabled =
-                    true;
-
-                attendanceAction.style.background =
-                    "#94a3b8";
-
-                actionNote.textContent =
-                    "Your attendance for today is complete.";
-
-                successTitle.textContent =
-                    "Clock Out Successful";
-
-                successMessage.textContent =
-                    "Your work session has ended.";
             }
+        );
 
-
-            successTime.textContent =
-                formattedTime;
-
-
-            successModal.classList.add(
-                "show"
-            );
-
-
-            /*
-            | Keep success screen visible
-            | for at least 3 seconds.
-            */
-
-            setTimeout(
-                () => {
-
-                    successModal.classList.remove(
-                        "show"
-                    );
-
-                },
-                3000
-            );
-
-        }
-    );
+    }
 
 
     /*
@@ -319,16 +390,20 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
-    mobileMenuButton.addEventListener(
-        "click",
-        () => {
+    if (mobileMenuButton && sidebar) {
 
-            sidebar.classList.toggle(
-                "open"
-            );
+        mobileMenuButton.addEventListener(
+            "click",
+            () => {
 
-        }
-    );
+                sidebar.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+    }
 
 
     /*
@@ -337,35 +412,36 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
-    const logoutButton =
-        document.getElementById("logoutButton");
+    if (logoutButton) {
+
+        logoutButton.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    attendanceState ===
+                    "clocked-in"
+                ) {
+
+                    const result =
+                        confirm(
+                            "You're still on duty.\n\nYou haven't clocked out yet. Signing out will not automatically record a clock-out.\n\nClick OK to sign out anyway."
+                        );
 
 
-    logoutButton.addEventListener(
-        "click",
-        () => {
+                    if (!result) {
+                        return;
+                    }
 
-            if (
-                attendanceState ===
-                "clocked-in"
-            ) {
-
-                const result =
-                    confirm(
-                        "You're still on duty.\n\nYou haven't clocked out yet. Signing out will not automatically record a clock-out.\n\nClick OK to sign out anyway."
-                    );
-
-                if (!result) {
-                    return;
                 }
 
+
+                window.location.href =
+                    "/login";
+
             }
+        );
 
-
-            window.location.href =
-                "/login";
-
-        }
-    );
+    }
 
 });
