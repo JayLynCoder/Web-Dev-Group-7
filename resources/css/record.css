@@ -326,10 +326,30 @@ label{
 }
 
 .employee-photo {
-    max-width: 150px;
+    max-width: 65%;
     border-radius: 8px;
     display: block;
     margin-bottom: 10px;
+    justify-self: center;
+}
+
+.employee-preview p{
+    font-size: 150%;
+    font-weight: bold;
+}
+
+#record-form{
+    display: flex;
+    flex-direction: column;
+}
+#record-form input{
+    width: 50%;
+    margin: 10px 0;
+    background-color: lightgray;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
 }
 
 /* RESPONSIVE */

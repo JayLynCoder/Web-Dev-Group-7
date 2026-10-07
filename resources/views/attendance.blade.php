@@ -93,7 +93,6 @@
                         </div>
 
                         <script>
-                            // Hide the preview after 3 seconds (3000 ms)
                             setTimeout(() => {
                                 const preview = document.getElementById('employee-preview');
                                 if (preview) {
