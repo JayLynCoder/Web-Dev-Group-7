@@ -3,18 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HexaHub dashboard">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="HexaHub dashboard"
-    >
-
-    <title>HexaHub | Dashboard</title>
+    <title>HexaHub | Record Attendance</title>
 
     @vite([
         'resources/css/record.css',
@@ -28,148 +20,111 @@
     <div class="dashboard-layout">
 
         <!-- Sidebar -->
-        <aside
-            class="dashboard-sidebar"
-            aria-labelledby="sidebar-title"
-        >
+        <aside class="dashboard-sidebar" aria-labelledby="sidebar-title">
 
             <header class="sidebar-header">
-
-                <h1 id="sidebar-title">
-                    HexaHub
-                </h1>
-
-                <p>
-                    Group 7
-                </p>
-
+                <h1 id="sidebar-title">HexaHub</h1>
+                <p>Group 7</p>
             </header>
 
+            <nav class="sidebar-navigation" aria-labelledby="nav-heading">
 
-            <!-- Member List -->
-            <nav
-                class="sidebar-navigation"
-                aria-labelledby="members-heading"
-            >
-
-                <h2 id="members-heading">
-                    Navigation
-                </h2>
+                <h2 id="nav-heading">Navigation</h2>
 
                 <ul class="member-list">
-                    <li class='member-item'>
-                        <a href="{{route('attendance')}}" class="member-link" >Record Attendance</a>
+                    <li class="member-item">
+                        <a href="{{ route('attendance') }}" class="member-link">Record Attendance</a>
                     </li>
-                    <li class='member-item'>
-                        <a href="{{route('record')}}" class="member-link" >Register Employee</a>
-                    </li>
+
+                    @if (session('is_admin'))
+                        <li class="member-item">
+                            <a href="{{ route('register-employee') }}" class="member-link">Register Employee</a>
+                        </li>
+                    @endif
                 </ul>
 
             </nav>
 
-
-            <!-- Sidebar Footer -->
             <footer class="sidebar-footer">
-
-                <form
-                    action="/logout"
-                    method="POST"
-                >
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
-
-                    <button
-                        type="submit"
-                        class="auth-button logout-button"
-                    >
-                        Sign Out
-                    </button>
-
+                    <button type="submit" class="auth-button logout-button">Sign Out</button>
                 </form>
-
             </footer>
 
         </aside>
 
-
-        <!-- Main Dashboard Content -->
+        <!-- Main Content -->
         <main class="dashboard-content">
 
             <header class="dashboard-header">
-
                 <div>
-
-                    <p class="dashboard-label">
-                        HexaHub
-                    </p>
-
-                    <h1>
-                        Register Employee
-                    </h1>
-
+                    <p class="dashboard-label">HexaHub</p>
+                    <h1>Record Employee Attendance</h1>
                 </div>
-
             </header>
 
-
-            <!-- Welcome Section -->
-            <section
-                class="dashboard-section"
-                aria-labelledby="welcome-heading"
-            >
-
+            <section class="dashboard-section" aria-labelledby="welcome-heading">
                 <article class="dashboard-card">
 
                     <header>
-
-                        <h2 id="welcome-heading">
-                            Welcome to HexaHub!
-                        </h2>
-
+                        <h2 id="welcome-heading">Welcome to HexaHub!</h2>
                     </header>
 
-                    <form id="record-form">
+                    @if (session('status'))
+                        <p class="status-message">{{ session('status') }}</p>
+                    @endif
+
+                    @if ($errors->any())
+                        <p class="error-message">{{ $errors->first() }}</p>
+                    @endif
+
+                    @if (session('scanned_employee'))
+                        @php $employee = session('scanned_employee'); @endphp
+
+                        <div class="employee-preview" id="employee-preview">
+                            <img
+                                src="{{ asset('storage/employees/' . $employee->picture) }}"
+                                alt="{{ $employee->first_name }} {{ $employee->last_name }}"
+                                class="employee-photo"
+                            >
+                            <p>{{ $employee->first_name }} {{ $employee->last_name }}</p>
+                            <p>{{ $employee->department }}</p>
+                        </div>
+
+                        <script>
+                            // Hide the preview after 3 seconds (3000 ms)
+                            setTimeout(() => {
+                                const preview = document.getElementById('employee-preview');
+                                if (preview) {
+                                    preview.style.display = 'none';
+                                }
+                            }, 3000);
+                        </script>
+                    @endif
+
+                    <form id="record-form" method="POST" action="{{ route('attendance.record') }}">
+                        @csrf
                         <label for="employeeId">Employee Id:</label>
-                        <input type="text" name="employeeId" id="employeeId"/>
-                        <button class="time-button">Time In</button>
-                        <button class="time-button">Time Out</button>
+                        <input type="text" name="employeeId" id="employeeId" autofocus required>
+                        <button type="submit" class="time-button">Submit</button>
                     </form>
 
                 </article>
-
             </section>
-
 
             <!-- Group Section -->
-            <section
-                class="dashboard-section"
-                aria-labelledby="group-heading"
-            >
-
+            <section class="dashboard-section" aria-labelledby="group-heading">
                 <article class="dashboard-card">
-
                     <header>
-
-                        <h2 id="group-heading">
-                            Group 7
-                        </h2>
-
+                        <h2 id="group-heading">Group 7</h2>
                     </header>
-
-                    <p>
-                        This website was developed by the members of Group 7.
-                    </p>
-
+                    <p>This website was developed by the members of Group 7.</p>
                 </article>
-
             </section>
 
-
             <footer class="dashboard-footer">
-
-                <p>
-                    &copy; {{ date('Y') }} HexaHub | Group 7
-                </p>
-
+                <p>&copy; {{ date('Y') }} HexaHub | Group 7</p>
             </footer>
 
         </main>

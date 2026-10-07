@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HexaHub dashboard">
 
-    <title>HexaHub | Dashboard</title>
+    <title>HexaHub | Register Employee</title>
 
     @vite([
-        'resources/css/dashboard.css',
+        'resources/css/record.css',
         'resources/js/app.js',
         'resources/css/cursorTrail.css'
     ])
@@ -60,17 +60,25 @@
             <header class="dashboard-header">
                 <div>
                     <p class="dashboard-label">HexaHub</p>
-                    <h1>Dashboard</h1>
+                    <h1>Logs</h1>
                 </div>
             </header>
 
             <section class="dashboard-section" aria-labelledby="welcome-heading">
                 <article class="dashboard-card">
+
                     <header>
                         <h2 id="welcome-heading">Welcome to HexaHub!</h2>
                     </header>
-                    <p>Successfully logged in{{ session('full_name') ? ', ' . session('full_name') : '' }}!</p>
-                    <p>Welcome to the Group 7 dashboard.</p>
+
+                    @if (session('status'))
+                        <p class="status-message">{{ session('status') }}</p>
+                    @endif
+
+                    @if ($errors->any())
+                        <p class="error-message">{{ $errors->first() }}</p>
+                    @endif
+
                 </article>
             </section>
 

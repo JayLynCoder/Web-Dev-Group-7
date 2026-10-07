@@ -1,0 +1,1478 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Courier New", Courier, monospace;
+
+    color: #ffffff;
+
+    background: #05051a;
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+.employee-background {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+.employee-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(5, 5, 30, 0.62),
+            rgba(5, 5, 30, 0.72)
+        );
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   APPLICATION
+======================================== */
+
+.employee-app {
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 100vh;
+
+    display: flex;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.employee-sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    padding: 1.5rem;
+
+    background:
+        rgba(5, 5, 30, 0.65);
+
+    border-right:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        10px 0 35px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 20;
+}
+
+
+/* ========================================
+   BRAND
+======================================== */
+
+.employee-brand {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding-bottom: 1.5rem;
+
+    margin-bottom: 1.25rem;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+}
+
+.employee-brand img {
+    width: min(180px, 100%);
+
+    height: auto;
+
+    image-rendering: pixelated;
+
+    filter:
+        drop-shadow(
+            0 0 7px
+            rgba(104, 212, 255, 0.35)
+        );
+}
+
+
+/* ========================================
+   PORTAL LABEL
+======================================== */
+
+.employee-portal-label {
+    margin: 0 0 1.2rem;
+
+    text-align: center;
+
+    color: #68d4ff;
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+.employee-navigation {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.45rem;
+}
+
+.employee-nav-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    width: 100%;
+
+    padding: 0.8rem 0.9rem;
+
+    border:
+        1px solid
+        transparent;
+
+    border-radius: 8px;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-size: 0.75rem;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.employee-nav-link:hover {
+    color: #ffffff;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border-color:
+        rgba(104, 212, 255, 0.2);
+}
+
+.employee-nav-link.active {
+    color: #ffffff;
+
+    background:
+        rgba(104, 212, 255, 0.12);
+
+    border-color:
+        rgba(104, 212, 255, 0.35);
+
+    box-shadow:
+        0 0 15px
+        rgba(104, 212, 255, 0.08);
+}
+
+.employee-nav-icon {
+    width: 22px;
+
+    color: #68d4ff;
+
+    text-align: center;
+
+    font-size: 0.9rem;
+}
+
+
+/* ========================================
+   SIDEBAR BOTTOM
+======================================== */
+
+.employee-sidebar-bottom {
+    margin-top: auto;
+}
+
+.employee-logout {
+    width: 100%;
+
+    padding: 0.8rem;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.16);
+
+    border-radius: 8px;
+
+    background:
+        rgba(5, 5, 45, 0.65);
+
+    color: #ffffff;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    font-size: 0.75rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.employee-logout:hover {
+    background:
+        rgba(17, 17, 90, 0.85);
+
+    border-color:
+        rgba(104, 212, 255, 0.35);
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+.employee-main {
+    width: calc(100% - 250px);
+
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    padding: 2rem;
+}
+
+
+/* ========================================
+   TOP BAR
+======================================== */
+
+.employee-topbar {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 2rem;
+}
+
+.employee-topbar-title p {
+    margin: 0 0 0.3rem;
+
+    color: #68d4ff;
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+.employee-topbar-title h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 1.4rem;
+}
+
+
+/* ========================================
+   EMPLOYEE PROFILE
+======================================== */
+
+.employee-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+}
+
+.employee-avatar {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(104, 212, 255, 0.35);
+
+    border-radius: 50%;
+
+    background:
+        rgba(104, 212, 255, 0.1);
+
+    color: #68d4ff;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 0 12px
+        rgba(104, 212, 255, 0.08);
+}
+
+.employee-user-info {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.employee-user-info strong {
+    font-size: 0.75rem;
+}
+
+.employee-user-info span {
+    margin-top: 0.2rem;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.6rem;
+}
+
+
+/* ========================================
+   WELCOME
+======================================== */
+
+.employee-welcome {
+    margin-bottom: 1.5rem;
+}
+
+.employee-welcome .eyebrow {
+    margin: 0 0 0.5rem;
+
+    color: #68d4ff;
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+.employee-welcome h2 {
+    margin: 0 0 0.4rem;
+
+    font-size: 1.7rem;
+}
+
+.employee-welcome p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 0.72rem;
+}
+
+
+/* ========================================
+   GLASS CARD
+======================================== */
+
+.employee-card {
+    padding: 1.5rem;
+
+    background:
+        rgba(255, 255, 255, 0.1);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+    border-radius: 16px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.25),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.14);
+}
+
+
+/* ========================================
+   EMPLOYEE INFORMATION
+======================================== */
+
+.employee-info {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: 1.25rem;
+}
+
+.employee-info-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+}
+
+.employee-large-avatar {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border:
+        1px solid
+        rgba(104, 212, 255, 0.35);
+
+    border-radius: 50%;
+
+    background:
+        rgba(104, 212, 255, 0.1);
+
+    color: #68d4ff;
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+}
+
+.employee-info h3 {
+    margin: 0 0 0.25rem;
+
+    font-size: 0.9rem;
+}
+
+.employee-info p {
+    margin: 0.2rem 0;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.62rem;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.employee-status {
+    text-align: right;
+}
+
+.employee-status-label {
+    display: block;
+
+    margin-bottom: 0.35rem;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 0.58rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+}
+
+.employee-status-value {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 0.4rem;
+
+    color: #ffffff;
+
+    font-size: 0.68rem;
+
+    font-weight: 700;
+}
+
+.employee-status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #8b8b8b;
+
+    box-shadow:
+        0 0 7px
+        rgba(255, 255, 255, 0.15);
+}
+
+.employee-status-dot.active {
+    background: #2e9d61;
+
+    box-shadow:
+        0 0 8px
+        rgba(46, 157, 97, 0.7);
+}
+
+
+/* ========================================
+   ATTENDANCE LAYOUT
+======================================== */
+
+.attendance-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.5fr)
+        minmax(280px, 0.8fr);
+
+    gap: 1.25rem;
+
+    margin-bottom: 1.25rem;
+}
+
+
+/* ========================================
+   ATTENDANCE CARD
+======================================== */
+
+.attendance-card {
+    min-height: 400px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+.attendance-card .eyebrow {
+    margin: 0 0 0.7rem;
+
+    color: #68d4ff;
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+.attendance-card h2 {
+    margin: 0;
+
+    font-size: 1.1rem;
+}
+
+.employee-clock {
+    margin: 2rem 0 1.5rem;
+}
+
+.employee-clock-label {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 0.6rem;
+}
+
+.employee-clock-time {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: clamp(2rem, 5vw, 3.3rem);
+
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+
+    text-shadow:
+        0 0 15px
+        rgba(104, 212, 255, 0.15);
+}
+
+.employee-clock-date {
+    display: block;
+
+    margin-top: 0.5rem;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.65rem;
+}
+
+
+/* ========================================
+   ATTENDANCE TIMES
+======================================== */
+
+.attendance-times {
+    display: grid;
+
+    grid-template-columns: 1fr 1px 1fr;
+
+    align-items: center;
+
+    width: min(100%, 420px);
+
+    margin-bottom: 1.5rem;
+
+    padding: 1rem 0;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+}
+
+.attendance-time-divider {
+    height: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+}
+
+.attendance-time span {
+    display: block;
+
+    margin-bottom: 0.35rem;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 0.58rem;
+
+    text-transform: uppercase;
+}
+
+.attendance-time strong {
+    color: #ffffff;
+
+    font-size: 0.75rem;
+}
+
+
+/* ========================================
+   PRIMARY ACTION
+======================================== */
+
+.employee-action {
+    width: min(100%, 420px);
+
+    min-height: 2.8rem;
+
+    padding: 0.7rem 1rem;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-radius: 8px;
+
+    background:
+        rgba(7, 7, 45, 0.9);
+
+    color: #ffffff;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px
+        rgba(0, 0, 0, 0.25);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.employee-action:hover {
+    background:
+        rgba(17, 17, 90, 0.95);
+
+    border-color:
+        rgba(104, 212, 255, 0.4);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(0, 0, 0, 0.3),
+
+        0 0 15px
+        rgba(104, 212, 255, 0.08);
+}
+
+.employee-action:active {
+    transform: translateY(1px);
+}
+
+.employee-action:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   ACTION NOTE
+======================================== */
+
+.employee-action-note {
+    margin: 0.65rem 0 0;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 0.58rem;
+}
+
+
+/* ========================================
+   SCHEDULE CARD
+======================================== */
+
+.schedule-card {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.schedule-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    margin-bottom: 2rem;
+}
+
+.schedule-header .eyebrow {
+    margin: 0 0 0.4rem;
+
+    color: #68d4ff;
+
+    font-size: 0.6rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+.schedule-header h2 {
+    margin: 0;
+
+    font-size: 0.95rem;
+}
+
+.schedule-badge {
+    padding: 0.35rem 0.55rem;
+
+    border:
+        1px solid
+        rgba(104, 212, 255, 0.25);
+
+    border-radius: 5px;
+
+    background:
+        rgba(104, 212, 255, 0.08);
+
+    color: #68d4ff;
+
+    font-size: 0.55rem;
+
+    font-weight: 700;
+}
+
+.schedule-hours {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+}
+
+.schedule-time-box {
+    flex: 1;
+}
+
+.schedule-time-box span {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 0.58rem;
+}
+
+.schedule-time-box strong {
+    font-size: 0.95rem;
+}
+
+.schedule-line {
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+}
+
+.schedule-detail {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 0.8rem 0;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.62rem;
+}
+
+.schedule-detail strong {
+    color: #ffffff;
+}
+
+
+/* ========================================
+   RECENT ACTIVITY
+======================================== */
+
+.activity-card {
+    overflow: hidden;
+}
+
+.activity-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+}
+
+.activity-header .eyebrow {
+    margin: 0 0 0.35rem;
+
+    color: #68d4ff;
+
+    font-size: 0.6rem;
+
+    letter-spacing: 0.1em;
+}
+
+.activity-header h2 {
+    margin: 0;
+
+    font-size: 0.95rem;
+}
+
+.activity-link {
+    color: #68d4ff;
+
+    font-size: 0.62rem;
+
+    text-decoration: none;
+}
+
+.activity-link:hover {
+    color: #b5edff;
+}
+
+
+/* ========================================
+   TABLE
+======================================== */
+
+.activity-table {
+    width: 100%;
+}
+
+.activity-table-header,
+.activity-table-row {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    gap: 1rem;
+
+    align-items: center;
+}
+
+.activity-table-header {
+    padding: 0.7rem 0.8rem;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 0.55rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.05em;
+}
+
+.activity-table-row {
+    padding: 0.85rem 0.8rem;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 0.6rem;
+}
+
+.activity-status {
+    display: inline-block;
+
+    width: fit-content;
+
+    padding: 0.3rem 0.5rem;
+
+    border-radius: 4px;
+
+    font-size: 0.52rem;
+
+    font-weight: 700;
+}
+
+.activity-status.present {
+    background:
+        rgba(46, 157, 97, 0.12);
+
+    color: #65c98c;
+
+    border:
+        1px solid
+        rgba(46, 157, 97, 0.2);
+}
+
+.activity-status.late {
+    background:
+        rgba(217, 119, 6, 0.12);
+
+    color: #f4b35f;
+
+    border:
+        1px solid
+        rgba(217, 119, 6, 0.2);
+}
+
+
+/* ========================================
+   MOBILE MENU
+======================================== */
+
+.employee-mobile-button {
+    display: none;
+
+    padding: 0.55rem 0.7rem;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+    border-radius: 7px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   CONFIRMATION MODAL
+======================================== */
+
+.employee-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem;
+
+    background:
+        rgba(5, 5, 30, 0.7);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.employee-modal-overlay.show {
+    display: flex;
+}
+
+.employee-modal {
+    width: min(100%, 430px);
+
+    padding: 1.75rem;
+
+    background:
+        rgba(12, 12, 48, 0.88);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.24);
+
+    border-radius: 16px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.5),
+
+        0 0 30px
+        rgba(104, 212, 255, 0.05);
+}
+
+.employee-modal-icon {
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 1rem;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(104, 212, 255, 0.3);
+
+    border-radius: 10px;
+
+    background:
+        rgba(104, 212, 255, 0.08);
+
+    color: #68d4ff;
+
+    font-size: 1.2rem;
+}
+
+.employee-modal h2 {
+    margin: 0 0 0.5rem;
+
+    font-size: 1.1rem;
+}
+
+.employee-modal > p {
+    margin: 0 0 1.25rem;
+
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 0.68rem;
+
+    line-height: 1.6;
+}
+
+.employee-confirmation-details {
+    margin-bottom: 1.25rem;
+
+    padding: 0.8rem 1rem;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
+    border-radius: 8px;
+}
+
+.employee-confirmation-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0.5rem 0;
+
+    font-size: 0.62rem;
+}
+
+.employee-confirmation-row span {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.employee-confirmation-row strong {
+    color: #ffffff;
+}
+
+.employee-modal-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0.6rem;
+}
+
+.employee-modal-cancel,
+.employee-modal-confirm {
+    min-height: 2.7rem;
+
+    border-radius: 8px;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+    font-size: 0.68rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.employee-modal-cancel {
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: #ffffff;
+}
+
+.employee-modal-confirm {
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    background:
+        rgba(7, 7, 45, 0.95);
+
+    color: #ffffff;
+}
+
+.employee-modal-confirm:hover,
+.employee-modal-cancel:hover {
+    border-color:
+        rgba(104, 212, 255, 0.4);
+}
+
+
+/* ========================================
+   SUCCESS SCREEN
+======================================== */
+
+.employee-success {
+    text-align: center;
+}
+
+.employee-success-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 1rem;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(46, 157, 97, 0.35);
+
+    border-radius: 50%;
+
+    background:
+        rgba(46, 157, 97, 0.1);
+
+    color: #65c98c;
+
+    font-size: 1.8rem;
+
+    box-shadow:
+        0 0 20px
+        rgba(46, 157, 97, 0.08);
+}
+
+.employee-success h2 {
+    margin: 0 0 0.5rem;
+
+    font-size: 1.05rem;
+}
+
+.employee-success p {
+    margin: 0 0 1rem;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.65rem;
+}
+
+.employee-success-time {
+    display: block;
+
+    margin-bottom: 1.2rem;
+
+    color: #68d4ff;
+
+    font-size: 1.5rem;
+}
+
+.employee-success-progress {
+    width: 100%;
+    height: 2px;
+
+    background: #68d4ff;
+
+    transform-origin: left;
+
+    animation:
+        employeeProgress 3s linear forwards;
+}
+
+@keyframes employeeProgress {
+
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 950px) {
+
+    .employee-sidebar {
+        transform: translateX(-100%);
+
+        transition:
+            transform 0.25s ease;
+    }
+
+    .employee-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .employee-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 1.25rem;
+    }
+
+    .employee-mobile-button {
+        display: block;
+    }
+
+    .attendance-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .employee-main {
+        padding: 1rem;
+    }
+
+    .employee-topbar {
+        gap: 1rem;
+    }
+
+    .employee-topbar-title h1 {
+        font-size: 1.1rem;
+    }
+
+    .employee-user-info {
+        display: none;
+    }
+
+    .employee-welcome h2 {
+        font-size: 1.35rem;
+    }
+
+    .employee-info {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .employee-status {
+        width: 100%;
+
+        text-align: left;
+    }
+
+    .employee-status-value {
+        justify-content: flex-start;
+    }
+
+    .activity-table-header {
+        display: none;
+    }
+
+    .activity-table-row {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 0.6rem;
+
+        padding: 0.9rem 0.3rem;
+    }
+
+    .activity-table-row span:first-child {
+        grid-column: span 2;
+
+        color: #ffffff;
+
+        font-weight: 700;
+    }
+
+    .employee-modal-actions {
+        grid-template-columns: 1fr;
+    }
+
+}
