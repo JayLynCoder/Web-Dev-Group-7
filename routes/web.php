@@ -25,3 +25,16 @@ Route::middleware('admin')->group(function () {
     Route::get('/register-employee', [EmployeeController::class, 'create'])->name('register-employee');
     Route::post('/register-employee', [EmployeeController::class, 'store'])->name('register-employee.submit');
 });
+
+// Employee routes
+Route::get('/employee', function () {
+    return view('employee.dashboard');
+});
+
+Route::get('/employee/attendance', function () {
+    return view('employee.dashboard');
+});
+
+Route::get('/employee/profile', function () {
+    return view('employee.dashboard');
+});
