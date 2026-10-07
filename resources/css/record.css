@@ -321,6 +321,13 @@ label{
     box-shadow: 2px 2px 2px black;
 }
 
+.employee-photo {
+    max-width: 150px;
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 10px;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
