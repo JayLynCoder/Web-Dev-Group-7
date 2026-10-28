@@ -19,48 +19,14 @@
 
     <div class="dashboard-layout">
 
-        <!-- Sidebar -->
-        <aside class="dashboard-sidebar" aria-labelledby="sidebar-title">
+        @include('partials.sidebar')
 
-            <header class="sidebar-header">
-                <h1 id="sidebar-title">HexaHub</h1>
-                <p>Group 7</p>
-            </header>
-
-            <nav class="sidebar-navigation" aria-labelledby="nav-heading">
-
-                <h2 id="nav-heading">Navigation</h2>
-
-                <ul class="member-list">
-                    <li class="member-item">
-                        <a href="{{ route('attendance') }}" class="member-link">Record Attendance</a>
-                    </li>
-
-                    @if (session('is_admin'))
-                        <li class="member-item">
-                            <a href="{{ route('register-employee') }}" class="member-link">Register Employee</a>
-                        </li>
-                    @endif
-                </ul>
-
-            </nav>
-
-            <footer class="sidebar-footer">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="auth-button logout-button">Sign Out</button>
-                </form>
-            </footer>
-
-        </aside>
-
-        <!-- Main Content -->
         <main class="dashboard-content">
 
             <header class="dashboard-header">
                 <div>
                     <p class="dashboard-label">HexaHub</p>
-                    <h1>Record Employee Attendance</h1>
+                    <h1>Record Student Attendance</h1>
                 </div>
             </header>
 
@@ -79,23 +45,23 @@
                         <p class="error-message">{{ $errors->first() }}</p>
                     @endif
 
-                    @if (session('scanned_employee'))
-                        @php $employee = session('scanned_employee'); @endphp
+                    @if (session('scanned_student'))
+                        @php $student = session('scanned_student'); @endphp
 
-                        <div class="employee-preview" id="employee-preview">
+                        <div class="employee-preview" id="student-preview">
                             <img
-                                src="{{ asset('storage/employees/' . $employee->picture) }}"
-                                alt="{{ $employee->first_name }} {{ $employee->last_name }}"
+                                src="{{ asset('storage/students/' . $student->picture) }}"
+                                alt="{{ $student->first_name }} {{ $student->last_name }}"
                                 class="employee-photo"
                             >
-                            <p>{{ $employee->first_name }} {{ $employee->last_name }}</p>
-                            <p>{{ $employee->department }}</p>
+                            <p>{{ $student->first_name }} {{ $student->last_name }}</p>
+                            <p>{{ $student->year_section }}</p>
+                            <p>{{ $student->college_program }}</p>
                         </div>
 
                         <script>
-                            // Hide the preview after 3 seconds (3000 ms)
                             setTimeout(() => {
-                                const preview = document.getElementById('employee-preview');
+                                const preview = document.getElementById('student-preview');
                                 if (preview) {
                                     preview.style.display = 'none';
                                 }
@@ -105,15 +71,14 @@
 
                     <form id="record-form" method="POST" action="{{ route('attendance.record') }}">
                         @csrf
-                        <label for="employeeId">Employee Id:</label>
-                        <input type="text" name="employeeId" id="employeeId" autofocus required>
+                        <label for="studentId">Student Number:</label>
+                        <input type="text" name="studentId" id="studentId" autofocus required>
                         <button type="submit" class="time-button">Submit</button>
                     </form>
 
                 </article>
             </section>
 
-            <!-- Group Section -->
             <section class="dashboard-section" aria-labelledby="group-heading">
                 <article class="dashboard-card">
                     <header>

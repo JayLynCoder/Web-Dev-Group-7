@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class StudentController extends Controller
 {
     public function create()
     {
-        return view('register-employee');
+        return view('register-student');
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class EmployeeController extends Controller
         ]);
 
         return redirect()
-            ->route('register-employee')
+            ->route('register-student')
             ->with('status', 'Employee registered successfully.');
     }
 }

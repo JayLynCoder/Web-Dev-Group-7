@@ -10,5 +10,10 @@ class Attendance extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['employee_id', 'attendance_date', 'time_in', 'time_out'];
+    protected $fillable = [
+        'student_id',
+        'attendance_date',
+        'time_in',
+        'time_out',
+    ];
 }

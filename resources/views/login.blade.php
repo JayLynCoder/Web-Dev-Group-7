@@ -76,6 +76,10 @@
 
                             <button type="submit" class="auth-button">Log In</button>
 
+                        <p class="account-switch">
+                            Don't have an account yet?
+                            <a href="{{route('register')}}">Create Account</a>
+                        </p>
                         </fieldset>
 
                     </form>

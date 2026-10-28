@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HexaHub dashboard">
 
-    <title>HexaHub | Register Employee</title>
+    <title>HexaHub | Register Student</title>
 
     @vite([
         'resources/css/record.css',
@@ -19,48 +19,14 @@
 
     <div class="dashboard-layout">
 
-        <!-- Sidebar -->
-        <aside class="dashboard-sidebar" aria-labelledby="sidebar-title">
+        @include('partials.sidebar')
 
-            <header class="sidebar-header">
-                <h1 id="sidebar-title">HexaHub</h1>
-                <p>Group 7</p>
-            </header>
-
-            <nav class="sidebar-navigation" aria-labelledby="nav-heading">
-
-                <h2 id="nav-heading">Navigation</h2>
-
-                <ul class="member-list">
-                    <li class="member-item">
-                        <a href="{{ route('attendance') }}" class="member-link">Record Attendance</a>
-                    </li>
-
-                    @if (session('is_admin'))
-                        <li class="member-item">
-                            <a href="{{ route('register-employee') }}" class="member-link">Register Employee</a>
-                        </li>
-                    @endif
-                </ul>
-
-            </nav>
-
-            <footer class="sidebar-footer">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="auth-button logout-button">Sign Out</button>
-                </form>
-            </footer>
-
-        </aside>
-
-        <!-- Main Content -->
         <main class="dashboard-content">
 
             <header class="dashboard-header">
                 <div>
                     <p class="dashboard-label">HexaHub</p>
-                    <h1>Register Employee</h1>
+                    <h1>Register Student</h1>
                 </div>
             </header>
 
@@ -79,36 +45,37 @@
                         <p class="error-message">{{ $errors->first() }}</p>
                     @endif
 
-                    <form id="register-form" action="{{ route('register-employee.submit') }}" method="POST" enctype="multipart/form-data">
+                    <form id="register-form" action="{{ route('register-student.submit') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <label for="fname">First Name:</label>
                         <input type="text" name="first_name" id="fname" value="{{ old('first_name') }}" required>
 
-                        <label for="lname">Last Name:</label>
+                        <label for="lname">Surname:</label>
                         <input type="text" name="last_name" id="lname" value="{{ old('last_name') }}" required>
 
-                        <label for="employee-number">Employee Number:</label>
-                        <input type="text" name="employee_number" id="employee-number" value="{{ old('employee_number') }}" required>
+                        <label for="student-number">Student Number:</label>
+                        <input type="text" name="student_number" id="student-number" value="{{ old('student_number') }}" required>
 
-                        <label for="department">Department:</label>
-                        <input type="text" name="department" id="department" value="{{ old('department') }}" required>
-                        
-                        
-                        <label for="picture">Picture:</label>
-                        <input type="file" name="picture" id="picture" accept="image/*" required onchange="previewImage(event)">
+                        <label for="year-section">Year / Section:</label>
+                        <input type="text" name="year_section" id="year-section" value="{{ old('year_section') }}" placeholder="e.g. 3 / A" required>
+
+                        <label for="college-program">College Program:</label>
+                        <input type="text" name="college_program" id="college-program" value="{{ old('college_program') }}" placeholder="e.g. BSIT" required>
+
+                        <label for="picture">Picture (JPEG only):</label>
+                        <input type="file" name="picture" id="picture" accept="image/jpeg" required onchange="previewImage(event)">
 
                         <div id="preview-container" style="margin-top:10px;">
                             <img id="preview" src="" alt="Image preview" style="max-width:200px; display:none;">
                         </div>
 
-                        <button type="submit" class="auth-button" id="register-button">Register Employee</button>
+                        <button type="submit" class="auth-button" id="register-button">Register Student</button>
                     </form>
 
                 </article>
             </section>
 
-            <!-- Group Section -->
             <section class="dashboard-section" aria-labelledby="group-heading">
                 <article class="dashboard-card">
                     <header>
@@ -126,7 +93,6 @@
 
     </div>
 
-
     <script>
         function previewImage(event) {
             const file = event.target.files[0];
@@ -134,17 +100,17 @@
 
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     preview.src = e.target.result;
-                    preview.style.display = 'block'; // show the image
+                    preview.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             } else {
-                preview.src = "";
-                preview.style.display = 'none'; // hide if no file selected
+                preview.src = '';
+                preview.style.display = 'none';
             }
         }
-        </script>
+    </script>
 
 </body>
 
