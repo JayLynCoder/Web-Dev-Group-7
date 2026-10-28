@@ -15,10 +15,62 @@
     ])
 
     <style>
-        .log-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-        .log-table th, .log-table td { padding: 8px 10px; border-bottom: 1px solid #ddd; text-align: left; }
         .table-wrap { overflow-x: auto; }
-        .delete-button { background: #c0392b; color: #fff; border: 0; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+        .log-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        .log-table th,
+        .log-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            color: #111 !important;
+            background: transparent;
+        }
+        .log-table th { font-weight: 700; }
+        .delete-button {
+            background: #c0392b;
+            color: #fff;
+            border: 0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #create-heading { text-align: center; }
+
+        /* Layout for the create-account form only */
+        form.create-user-form {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100% !important;
+            max-width: 340px !important;
+            margin: 16px auto 0 !important;
+        }
+        form.create-user-form label {
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        form.create-user-form input:not([type="checkbox"]),
+        form.create-user-form select {
+            width: 100% !important;
+            padding: 8px 10px;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+        form.create-user-form .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-weight: 400;
+        }
+        form.create-user-form .checkbox-label input {
+            width: auto !important;
+        }
+        form.create-user-form button {
+            width: 100% !important;
+            margin-top: 16px;
+        }
     </style>
 </head>
 
@@ -52,7 +104,7 @@
                         <p class="error-message">{{ $errors->first() }}</p>
                     @endif
 
-                    <form action="{{ route('users.store') }}" method="POST">
+                    <form class="create-user-form" action="{{ route('users.store') }}" method="POST">
                         @csrf
 
                         <label for="username">Username:</label>
@@ -77,7 +129,7 @@
                             @endforeach
                         </select>
 
-                        <label for="is_admin">
+                        <label for="is_admin" class="checkbox-label">
                             <input type="checkbox" name="is_admin" id="is_admin" value="1" @checked(old('is_admin'))>
                             Admin account
                         </label>

@@ -47,6 +47,11 @@ body {
     color: #ffffff;
 }
 
+a{
+    text-decoration: none;
+    color: #60a5fa;
+}
+
 
 /* Sidebar Header */
 

@@ -13,6 +13,39 @@
         'resources/js/app.js',
         'resources/css/cursorTrail.css'
     ])
+
+    <style>
+        #welcome-heading { text-align: center; }
+
+        /* Layout for the register-student form only */
+        form#register-form.register-student-form {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100% !important;
+            max-width: 340px !important;
+            margin: 16px auto 0 !important;
+        }
+        form#register-form.register-student-form label {
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        form#register-form.register-student-form input,
+        form#register-form.register-student-form select {
+            width: 100% !important;
+            padding: 8px 10px;
+            box-sizing: border-box;
+            border-radius: 6px;
+        }
+        form#register-form.register-student-form button {
+            width: 100% !important;
+            margin-top: 16px;
+        }
+        #preview-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body id="trail-stage">
@@ -45,7 +78,7 @@
                         <p class="error-message">{{ $errors->first() }}</p>
                     @endif
 
-                    <form id="register-form" action="{{ route('register-student.submit') }}" method="POST" enctype="multipart/form-data">
+                    <form class="register-student-form" id="register-form" action="{{ route('register-student.submit') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <label for="fname">First Name:</label>
