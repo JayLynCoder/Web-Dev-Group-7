@@ -1,3 +1,4 @@
+// Spawns falling 0/1 "bits" behind the mouse. Needs an element with id="trail-stage".
 export function initCursorTrail() {
     const stage = document.getElementById('trail-stage');
     if (!stage) return;
@@ -10,19 +11,14 @@ export function initCursorTrail() {
         bit.className = 'bit';
         bit.textContent = Math.random() < 0.5 ? '0' : '1';
 
-        const offsetX = (Math.random() - 0.5) * 14;
-        const offsetY = (Math.random() - 0.5) * 14;
-        bit.style.left = (x + offsetX) + 'px';
-        bit.style.top = (y + offsetY) + 'px';   // was .right — fixed
-
-        const scale = 0.8 + Math.random() * 0.6;
-        bit.style.fontSize = (14 * scale) + 'px';
+        bit.style.left = x + (Math.random() - 0.5) * 14 + 'px';
+        bit.style.top = y + (Math.random() - 0.5) * 14 + 'px';
+        bit.style.fontSize = 14 * (0.8 + Math.random() * 0.6) + 'px';
 
         stage.appendChild(bit);
         bit.addEventListener('animationend', () => bit.remove());
     }
 
-    // moved out here — this is what was missing
     window.addEventListener('mousemove', (e) => {
         const now = performance.now();
         if (now - lastSpawn > spawnInterval) {

@@ -1,0 +1,96 @@
+/*
+|--------------------------------------------------------------------------
+| HexaHub — the ONLY stylesheet. Tailwind v4 + a few shared HexaHub styles.
+|--------------------------------------------------------------------------
+| Most styling lives as Tailwind classes in the Blade files.
+| Repeated "looks" (glass card, buttons, inputs) are defined once below as
+| @utility classes so every page stays consistent.
+*/
+
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* Brand tokens → usable as bg-hexa-cyan, text-hexa-cyan, font-mono, etc. */
+@theme {
+    --font-mono: 'Courier New', Courier, monospace;
+
+    --color-hexa-cyan: #68d4ff;
+    --color-hexa-cyan-light: #b5edff;
+    --color-hexa-night: #05051a;
+    --color-hexa-navy: #07072d;
+    --color-hexa-indigo: #11115a;
+    --color-hexa-green: #65c98c;
+    --color-hexa-amber: #f4b35f;
+    --color-hexa-red: #ff8a8a;
+}
+
+@layer base {
+    body {
+        @apply min-h-screen bg-hexa-night font-mono text-white antialiased;
+    }
+}
+
+/* Frosted glass panel used by every card, modal and sidebar. */
+@utility glass {
+    background-color: rgb(255 255 255 / 0.1);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 1rem;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 20px 45px rgb(0 0 0 / 0.25),
+        inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+
+/* Small cyan uppercase label above headings. */
+@utility eyebrow {
+    @apply text-[0.68rem] font-bold uppercase tracking-[0.12em] text-hexa-cyan;
+}
+
+/* Dark navy main button (Log In, Clock In, Submit…). */
+@utility btn-primary {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-white/15 bg-hexa-navy/90 px-4 font-mono text-sm font-bold text-white shadow-lg shadow-black/25 transition hover:-translate-y-px hover:border-hexa-cyan/40 hover:bg-hexa-indigo/95 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
+}
+
+/* Transparent secondary button (Cancel, Sign Out…). */
+@utility btn-ghost {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-white/5 px-4 font-mono text-sm font-bold text-white transition hover:border-hexa-cyan/40 hover:bg-white/10;
+}
+
+/* Light text input from the login page. */
+@utility field {
+    @apply h-11 w-full rounded-md border border-white/30 bg-white/90 px-3 font-mono text-sm text-[#24243b] transition placeholder:text-[#858799] focus:border-hexa-cyan focus:bg-white focus:outline-none focus:ring-4 focus:ring-hexa-cyan/25;
+}
+
+/* ---------- Binary cursor trail (resources/js/cursorTrail.js) ---------- */
+.bit {
+    position: fixed;
+    font-weight: bold;
+    color: #39c0ff;
+    text-shadow: 0 0 6px #39c0ff, 0 0 12px #1fae5c;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+    animation: fall-fade 1.1s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes fall-fade {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, calc(-50% + 40px)) scale(0.8); }
+}
+
+/* Shrinking bar on the success modal (3 s, same as the auto-close). */
+@keyframes shrink {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+.animate-shrink {
+    transform-origin: left;
+    animation: shrink 3s linear forwards;
+}

@@ -1,59 +1,126 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HexaHub — Group 7 Attendance System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 12 + Tailwind CSS v4 + MySQL.
+Admins register employees and record attendance at a kiosk; employees sign in to the **Employee Portal** to clock in/out themselves.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. First-time setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Requirements: PHP 8.2+, Composer, Node 20+, MySQL (XAMPP or Laragon is fine).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+composer install
+npm install
 
-## Learning Laravel
+cp .env.example .env          # Windows: copy .env.example .env
+php artisan key:generate
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Create an **empty database called `hexahub`** in phpMyAdmin (or change `DB_DATABASE` in `.env`). Then:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+php artisan migrate --seed    # creates all tables + demo accounts
+php artisan storage:link      # lets employee pictures show up
+```
 
-## Laravel Sponsors
+## 2. Running it
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Two terminals:
 
-### Premium Partners
+```bash
+php artisan serve             # http://localhost:8000
+npm run dev                   # compiles Tailwind + JS, auto-refreshes
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+(Or `composer run dev` to start both at once.)
 
-## Contributing
+## 3. Demo logins (from the seeder)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Role     | Email                    | Password       |
+|----------|--------------------------|----------------|
+| Admin    | `admin@hexahub.test`     | `Admin@123`    |
+| Employee | `employee@hexahub.test`  | `Employee@123` |
 
-## Code of Conduct
+Kiosk test numbers: `HH-2026-001` (Juan), `HH-2026-002` (Maria, kiosk only).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+To wipe everything and start over: `php artisan migrate:fresh --seed`
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 4. Where things live
 
-## License
+```
+app/
+├── Http/Controllers/
+│   ├── AuthController.php            login, logout, register, /dashboard redirect
+│   ├── Admin/
+│   │   ├── DashboardController.php   admin home (stats + today's attendance)
+│   │   ├── AttendanceController.php  kiosk + attendance logs
+│   │   └── EmployeeController.php    employee list + register employee
+│   └── Employee/
+│       └── PortalController.php      employee dashboard, my attendance, profile, clock in/out
+├── Http/Middleware/                  auth.check, admin, employee
+└── Models/                           User, Employee, Attendance (clock-in rules: Attendance::toggleFor)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+config/attendance.php                 work schedule (start/end/break) — used for "Late"
+config/members.php                    Group 7 member names
+
+database/
+├── migrations/                       users, employees, attendance (+ Laravel's cache/jobs/sessions)
+└── seeders/DatabaseSeeder.php        demo admin, employees, attendance history
+
+resources/
+├── css/app.css                       THE ONLY CSS FILE: Tailwind + HexaHub theme colors
+├── js/
+│   ├── app.js                        entry point, loads the modules below
+│   ├── cursorTrail.js                binary mouse trail
+│   ├── modals.js                     open/close any <x-modal>
+│   ├── employee.js                   live clock, mobile menu, sign-out warning
+│   └── forms.js                      password checklist, picture preview
+└── views/
+    ├── components/
+    │   ├── layouts/auth.blade.php    shell for login/register (video bg + glass card)
+    │   ├── layouts/portal.blade.php  shell for every logged-in page (sidebar + top bar)
+    │   ├── card, modal, flash, avatar, nav-link, stat, status-badge,
+    │   ├── attendance-table          shared table used on 4 pages
+    │   └── form/input                label + icon + input + error
+    ├── auth/      login, register
+    ├── admin/     dashboard, attendance (kiosk), logs, employees, register-employee
+    └── employee/  dashboard, attendance, profile
+
+routes/web.php                        grouped: guest / admin (/admin/...) / employee (/employee/...)
+```
+
+### Pages
+
+| URL                       | Who      | What |
+|---------------------------|----------|------|
+| `/login`, `/register`     | guests   | sign in / create account |
+| `/admin`                  | admin    | stats, today's attendance, Group 7 members |
+| `/admin/attendance`       | admin    | kiosk: type employee number → time in / time out |
+| `/admin/logs`             | admin    | all attendance records, filter by date |
+| `/admin/employees`        | admin    | employee list |
+| `/admin/employees/create` | admin    | register employee (+ optional portal login) |
+| `/employee`               | employee | clock in / clock out, schedule, recent attendance |
+| `/employee/attendance`    | employee | full attendance history |
+| `/employee/profile`       | employee | employee info + days logged / late |
+
+---
+
+## 5. Styling rules (Tailwind)
+
+* Write Tailwind classes directly in the Blade files. **Don't add new .css files.**
+* HexaHub colors are in `@theme` in `resources/css/app.css`:
+  `hexa-cyan`, `hexa-night`, `hexa-navy`, `hexa-indigo`, `hexa-green`, `hexa-amber`, `hexa-red`
+  → use as `text-hexa-cyan`, `bg-hexa-navy/90`, `border-hexa-cyan/30`, etc.
+* Shared looks are ready-made classes: `glass` (frosted card), `btn-primary`, `btn-ghost`, `field` (input), `eyebrow` (small cyan label).
+* New logged-in page? Start from:
+
+```blade
+<x-layouts.portal title="My Page">
+    <x-card eyebrow="Section" title="Something">
+        ...
+    </x-card>
+</x-layouts.portal>
+```
