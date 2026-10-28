@@ -58,7 +58,16 @@
                         <input type="text" name="student_number" id="student-number" value="{{ old('student_number') }}" required>
 
                         <label for="year-section">Year / Section:</label>
-                        <input type="text" name="year_section" id="year-section" value="{{ old('year_section') }}" placeholder="e.g. 3 / A" required>
+                        <input
+                            type="text"
+                            name="year_section"
+                            id="year-section"
+                            value="{{ old('year_section') }}"
+                            placeholder="e.g. 3-1"
+                            pattern="[1-9]-[0-9]{1,2}"
+                            title="Use the format 3-1"
+                            required
+                        >
 
                         <label for="college-program">College Program:</label>
                         <input type="text" name="college_program" id="college-program" value="{{ old('college_program') }}" placeholder="e.g. BSIT" required>
