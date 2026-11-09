@@ -13,6 +13,7 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+<<<<<<< Updated upstream
     /**
      * The attributes that are mass assignable.
      *
@@ -47,3 +48,7 @@ class User extends Authenticatable
         ];
     }
 }
+=======
+    protected $fillable = ['email', 'username', 'full_name', 'password_hash', 'role', 'is_admin', 'student_id'];
+}
+>>>>>>> Stashed changes
