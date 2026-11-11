@@ -56,7 +56,7 @@ class UserController extends Controller
 
         $users = collect($this->users->all());
 
-        return view('users', [
+        return view('admin.users.index', [
             'users'    => $users,
             'students' => $this->availableStudents($users),
         ]);
@@ -140,7 +140,7 @@ class UserController extends Controller
             $target->student_id ? (string) $target->student_id : null
         );
 
-        return view('users-edit', [
+        return view('admin.users.edit', [
             'user'     => $target,
             'students' => $students,
         ]);

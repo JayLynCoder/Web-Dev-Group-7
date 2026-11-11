@@ -10,7 +10,7 @@ Route::get('/', fn () => redirect()->route('login'));
 
 // Registration
 Route::get('/register', function () {
-    return view('register');
+    return view('auth.register');
 })->name('register');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');

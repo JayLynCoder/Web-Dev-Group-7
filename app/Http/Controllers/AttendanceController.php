@@ -21,7 +21,7 @@ class AttendanceController extends Controller
     // Admin: attendance login page
     public function create()
     {
-        return view('attendance');
+        return view('admin.attendance');
     }
 
     // Admin: enter student number
@@ -92,7 +92,7 @@ class AttendanceController extends Controller
             ->values()
             ->take(500);
 
-        return view('attendance-logs', [
+        return view('admin.logs', [
             'logs' => $logs,
             'date' => $date,
         ]);
@@ -134,7 +134,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return view('student-attendance', [
+        return view('student.attendance', [
             'student' => $student,
             'logs'    => $logs,
             'today'   => $today,

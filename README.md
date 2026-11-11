@@ -1,59 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HexaHub — Group 7 Student Attendance System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 12 + Tailwind CSS v4, with **Firebase Realtime Database** as the database.
 
-## About Laravel
+* **Admins** register students, record attendance at a kiosk and view all logs.
+* The **super admin** also manages user accounts.
+* **Students** log in and time in / time out themselves.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+No MySQL is needed. Users, students and attendance live in Firebase; sessions and cache are saved as files.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 1. Requirements
 
-## Learning Laravel
+PHP 8.2+ (XAMPP's PHP is fine), Composer, Node 20+, and access to the group's Firebase project.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 2. First-time setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+npm install
+npm install-scripts approve esbuild   # only if npm shows the esbuild warning
+npm rebuild esbuild
 
-## Laravel Sponsors
+copy .env.example .env                # Mac/Linux: cp .env.example .env
+php artisan key:generate
+php artisan storage:link              # lets student pictures show up
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 3. Connect Firebase (the database)
 
-### Premium Partners
+You need two things from the Firebase console: a **service account key file** and the **Realtime Database URL**.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. Open https://console.firebase.google.com and choose the group's project.
+   *(No project yet? Click **Add project**, then **Build → Realtime Database → Create database**, pick a location such as Singapore, and start in **locked mode**.)*
+2. **Key file:** ⚙ **Project settings → Service accounts → Generate new private key**.
+   Rename the downloaded file to `firebase_credentials.json` and put it in a folder called **`firebaseprivate`** in the project root:
+   ```
+   Web-Dev-Group-7/
+   ├── firebaseprivate/
+   │   └── firebase_credentials.json
+   ├── app/
+   └── ...
+   ```
+   `firebaseprivate/` is in `.gitignore`. **Never commit this file.** Share it with teammates privately.
+3. **Database URL:** **Build → Realtime Database**. Copy the URL at the top of the Data tab (it looks like `https://your-project-default-rtdb.asia-southeast1.firebasedatabase.app`) and paste it into `.env`:
+   ```
+   FIREBASE_CREDENTIALS=firebaseprivate/firebase_credentials.json
+   FIREBASE_DATABASE_URL=https://your-project-default-rtdb.asia-southeast1.firebasedatabase.app
+   ```
+4. Run `php artisan config:clear`.
 
-## Contributing
+## 4. Create the first account
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Make yourself a super admin (it is saved in Firebase):
 
-## Code of Conduct
+```bash
+php artisan admin:create yourname you@example.com "YourPass@123" --role=superadmin
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Optional** demo data (2 students and 3 accounts). Skip this if your group shares one Firebase project that already has real data:
 
-## Security Vulnerabilities
+```bash
+php artisan db:seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Role        | Email                     | Password      |
+|-------------|---------------------------|---------------|
+| Super admin | `superadmin@hexahub.test` | `Admin@123`   |
+| Admin       | `admin@hexahub.test`      | `Admin@123`   |
+| Student     | `student@hexahub.test`    | `Student@123` |
 
-## License
+## 5. Run it
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Two terminals:
+
+```bash
+php artisan serve      # http://localhost:8000
+npm run dev            # Tailwind + JS, keep it running
+```
+
+---
+
+## Where things live
+
+```
+app/
+├── Console/Commands/CreateAdmin.php   php artisan admin:create
+├── Http/Controllers/
+│   ├── AuthController.php             login, logout, student self-registration
+│   ├── AttendanceController.php       kiosk, logs, student time in/out (+10-minute rule)
+│   ├── StudentController.php          register student (+ picture)
+│   └── UserController.php             manage users (super admin only)
+├── Http/Middleware/                   auth.check, admin
+└── Services/UserStore.php             reads/writes users in Firebase
+
+firebaseprivate/                       your Firebase key (git-ignored)
+database/seeders/DatabaseSeeder.php    optional demo data → Firebase
+
+resources/
+├── css/app.css                        THE ONLY CSS FILE (Tailwind + HexaHub theme)
+├── js/
+│   ├── app.js                         entry point, loads the modules below
+│   ├── cursorTrail.js                 binary mouse trail
+│   ├── modals.js                      modals, "Are you sure?" dialog, auto-hide
+│   ├── portal.js                      live clock, mobile sidebar
+│   └── forms.js                       password checklist, picture preview
+└── views/
+    ├── components/                    reusable pieces (<x-card>, <x-modal>, …)
+    │   └── layouts/                   auth.blade.php (guest) · portal.blade.php (logged in)
+    ├── auth/                          login, register
+    ├── admin/                         attendance (kiosk), logs, register-student, users/
+    └── student/                       attendance (time in / time out)
+```
+
+### Firebase data shape
+
+```
+students/<student number>                 first_name, last_name, year_section, college_program, picture
+attendance/<student number>/<YYYY-MM-DD>  time_in, time_out
+users/<push id>                           username, email, full_name, password_hash, role, student_id
+```
+
+### Pages
+
+| URL                                  | Who         | What |
+|--------------------------------------|-------------|------|
+| `/login`, `/register`                | guests      | sign in / student creates an account |
+| `/attendance`                        | admins      | kiosk: student number → time in / time out |
+| `/attendance/logs`                   | admins      | all records, filter by date |
+| `/register-student`                  | admins      | add a student + photo |
+| `/users`                             | super admin | create, edit, delete accounts |
+| `/student-attendance`                | students    | time in / time out, own history |
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `No application encryption key` | `php artisan key:generate` |
+| `Unable to create an API client without credentials` / file not found | key file isn't at `firebaseprivate/firebase_credentials.json`, or `.env` path is wrong → `php artisan config:clear` |
+| `PermissionDenied` / 401 | key belongs to a different Firebase project than the URL, or the key was deleted in the console → generate a new one |
+| Page has no styling | `npm run dev` isn't running |
+| Student pictures don't show | `php artisan storage:link` |

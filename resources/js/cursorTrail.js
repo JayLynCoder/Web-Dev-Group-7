@@ -1,3 +1,4 @@
+// Spawns falling 0/1 "bits" behind the mouse. Needs an element with id="trail-stage".
 export function initCursorTrail() {
     const stage = document.getElementById('trail-stage');
     if (!stage) return;
