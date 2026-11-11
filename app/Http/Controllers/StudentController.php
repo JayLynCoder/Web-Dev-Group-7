@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
 use Illuminate\Http\Request;
+use Kreait\Firebase\Contract\Database;
 
 class StudentController extends Controller
 {
+    protected Database $database;
+
+    public function __construct(Database $database)
+    {
+        $this->database = $database;
+    }
+
     public function create()
     {
         return view('register-student');
@@ -18,9 +25,18 @@ class StudentController extends Controller
             'first_name'     => 'required|string|max:80',
             'last_name'      => 'required|string|max:80',
             'student_number' => [
-                'required', 'string', 'max:50',
+                'bail', 'required', 'string', 'max:50',
                 'regex:/^[A-Za-z0-9\-_]+$/',
-                'unique:students,student_number',
+                function ($attribute, $value, $fail) {
+                    $exists = $this->database
+                        ->getReference("students/{$value}")
+                        ->getSnapshot()
+                        ->exists();
+
+                    if ($exists) {
+                        $fail('This student number is already registered.');
+                    }
+                },
             ],
             'year_section'    => ['required', 'string', 'max:50', 'regex:/^[1-9]-[0-9]{1,2}$/'],
             'college_program' => 'required|string|max:150',
@@ -31,11 +47,11 @@ class StudentController extends Controller
             'picture.mimes'        => 'The picture must be a JPEG file.',
         ]);
 
-        // Saved as "<student number>.jpg"
+        // Picture still saved locally as "<student number>.jpg"
         $filename = $validated['student_number'] . '.jpg';
         $request->file('picture')->storeAs('students', $filename, 'public');
 
-        Student::create([
+        $this->database->getReference("students/{$validated['student_number']}")->set([
             'first_name'      => $validated['first_name'],
             'last_name'       => $validated['last_name'],
             'student_number'  => $validated['student_number'],

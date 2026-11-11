@@ -26,6 +26,24 @@
             background: transparent;
         }
         .log-table th { font-weight: 700; }
+
+        .action-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .action-buttons form { margin: 0; }
+        .edit-button {
+            display: inline-block;
+            background: #2563eb;
+            color: #fff !important;
+            border: 0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: inherit;
+        }
         .delete-button {
             background: #c0392b;
             color: #fff;
@@ -164,18 +182,28 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->is_admin ? 'Admin' : 'Student' }}</td>
                                         <td>
-                                            @if ($user->id !== session('user_id'))
-                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                                      onsubmit="return confirm('Delete this account?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="delete-button">Delete</button>
-                                                </form>
-                                            @else
-                                                (you)
-                                            @endif
+                                            {{ match ($user->role) {
+                                                'superadmin' => 'Super Admin',
+                                                'admin'      => 'Admin',
+                                                default      => 'Student',
+                                            } }}
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <a href="{{ route('users.edit', $user->id) }}" class="edit-button">Edit</a>
+
+                                                @if ($user->id === session('user_id'))
+                                                    <span>(you)</span>
+                                                @elseif ($user->role !== 'superadmin')
+                                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                          onsubmit="return confirm('Delete this account?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="delete-button">Delete</button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

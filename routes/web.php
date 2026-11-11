@@ -32,7 +32,7 @@ Route::middleware('auth.check')->group(function () {
     Route::post('/student-attendance/record', [AttendanceController::class, 'recordOwnAttendance'])->name('student-attendance.record');
 });
 
-// Admin only
+// Admin and super admin
 Route::middleware('admin')->group(function () {
     // Attendance login + logs
     Route::get('/attendance', [AttendanceController::class, 'create'])->name('attendance');
@@ -43,8 +43,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/register-student', [StudentController::class, 'create'])->name('register-student');
     Route::post('/register-student', [StudentController::class, 'store'])->name('register-student.submit');
 
-    // User account management
+    // User account management (the controller limits these to the super admin)
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });

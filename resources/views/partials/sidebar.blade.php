@@ -1,3 +1,5 @@
+
+
 <aside class="dashboard-sidebar" aria-labelledby="sidebar-title">
 
     <header class="sidebar-header">
@@ -20,9 +22,11 @@
                 <li class="member-item">
                     <a href="{{ route('register-student') }}" class="member-link">Register Student</a>
                 </li>
-                <li class="member-item">
-                    <a href="{{ route('users.index') }}" class="member-link">Manage Users</a>
-                </li>
+                @if (session('role') === 'superadmin')
+                    <li class="member-item">
+                        <a href="{{ route('users.index') }}" class="member-link">Manage Users</a>
+                    </li>
+                @endif
             @else
                 <li class="member-item">
                     <a href="{{ route('student-attendance') }}" class="member-link">Student Attendance</a>
